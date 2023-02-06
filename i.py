@@ -1,4 +1,6 @@
+from flet import Text
 import flet as ft
+
 import webbrowser
 import requests
 import random
@@ -6,7 +8,7 @@ import os
 
 def main(page):
     try:
-        news = requests.get("http://low-webing-newsapi.mc-m.net/")
+        news = requests.get("http://low-webing-newsapi.mc-m.net/",timeout=5)
     except:
         news = '网络错误'
     def btn_click(e):
@@ -23,6 +25,6 @@ def main(page):
 
     page.add(txt_name, ft.ElevatedButton("启动游戏", on_click=btn_click))
     page.add(txt_name, ft.ElevatedButton("我的世界:故事模式", on_click=goStory))
-    t = ft.Text(value=str(news), color="green")
-    page.controls.append(t)
+    page.add(Text(value=news))
+    page.update()
 ft.app(target=main,port=random.randint(8255,9000))
